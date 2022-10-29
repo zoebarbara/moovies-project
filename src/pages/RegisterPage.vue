@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <q-form
-      @submit.prevent="register"
+      @submit.prevent="storeUser.signUp"
       class="column q-gutter-sm"
       action="http://localhost:9000"
       method="GET"
@@ -53,18 +53,18 @@
           ></q-icon>
         </template>
       </q-input>
-      <q-toggle
+      <!-- <q-toggle
         v-model="accept"
         label="I accept the license and terms"
-      ></q-toggle>
+      ></q-toggle> -->
       <small v-if="errorMsg">{{ errorMsg }}</small>
 
       <q-btn label="Register" type="submit" color="primary"></q-btn>
       <p>
         Already have an account?
-        <span class="linkRegister">
+        <!-- <span class="linkRegister">
           <RouterLink :to="{ name: 'login' }">Login here</RouterLink>
-        </span>
+        </span> -->
       </p>
     </q-form>
   </q-page>
@@ -72,8 +72,10 @@
 
 <script setup>
 import { ref } from "vue";
-import { supabase } from "../supabase/supabase";
+import { useUserStore } from "../stores/user.js";
 import { RouterLink, useRouter } from "vue-router";
+
+const storeUser = useUserStore();
 
 //Create data
 const router = useRouter();
@@ -86,31 +88,32 @@ const isPwdConfirmation = ref(true);
 const errorMsg = ref(null);
 
 // Register function
-const register = async () => {
-  if (password.value === confirmationPassword.value) {
-    try {
-      const { error } = await supabase.auth.signUp({
-        email: email.value,
-        password: password.value,
-      });
-      if (error) throw error;
-      alert("<p>You have registered succesfully!</p>");
-      router.push({ name: "login" });
-    } catch (error) {
-      errorMsg.value = error.message;
-      setTimeout(() => {
-        errorMsg.value = null;
-      }, 5000);
-    }
-    return;
-  }
+// const register = async () => {
+//   if (password.value === confirmationPassword.value) {
+//     try {
+//       const { error } = await supabase.auth.signUp({
+//         email: email.value,
+//         password: password.value,
+//       });
+//       if (error) throw error;
+//       alert("<p>You have registered succesfully!</p>");
+//       router.push({ name: "login" });
+//     } catch (error) {
+//       errorMsg.value = error.message;
+//       setTimeout(() => {
+//         errorMsg.value = null;
+//       }, 5000);
+//     }
+//     return;
+//   }
 
-  errorMsg.value = "Password do not match";
-  setTimeout(() => {
-    errorMsg.value = null;
-  }, 5000);
+//   errorMsg.value = "Password do not match";
+//   setTimeout(() => {
+//     errorMsg.value = null;
+//   }, 5000);
 
-  return { email, password, confirmationPassword, errorMsg, register };
-};
+//   return { email, password, confirmationPassword, errorMsg, register };
+// };
+//
 </script>
 <style></style>
