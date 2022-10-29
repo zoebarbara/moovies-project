@@ -31,14 +31,16 @@ onMounted(() => {
 
 const router = useRouter();
 const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+const { user } = storeToRefs(useUserStore);
 
 onMounted(async () => {
+  console.log("Mounted");
   try {
     await userStore.fetchUser(); // here we call fetch user
+    console.log(user.value);
     if (!user.value) {
       // redirect them to logout if the user is not there
-      router.push({ path: "/auth" });
+      router.push({ path: "/login" });
     } else {
       // continue to dashboard
       router.push({ path: "/" });
