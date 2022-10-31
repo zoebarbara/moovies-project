@@ -36,6 +36,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/emailconfirmation",
+    name: "emailconfirmation",
+    component: () => import("pages/EmailConfirmation.vue"),
+  },
 
   // Always leave this as last one,
   // but you can also remove it

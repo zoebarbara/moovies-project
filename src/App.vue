@@ -18,35 +18,36 @@ const REGION = "es";
 const headers = {};
 const movieList = ref("");
 
-const fetchMovies = async () => {
-  const data = await axios.get(
-    `${API_URL}/movie/popular?api_key=${API_KEY}&language=${REGION}&page=1&region=${REGION}`
-  );
-  console.log("data", data);
-};
+// const fetchMovies = async () => {
+//   const data = await axios.get(
+//     `${API_URL}/movie/popular?api_key=${API_KEY}&language=${REGION}&page=1&region=${REGION}`
+//   );
+//   console.log("data", data);
+// };
 
-onMounted(() => {
-  fetchMovies();
-});
+// onMounted(() => {
+//   fetchMovies();
+// });
 
 const router = useRouter();
 const userStore = useUserStore();
 const { user } = storeToRefs(useUserStore);
 
-onMounted(async () => {
-  console.log("Mounted");
-  try {
-    await userStore.fetchUser(); // here we call fetch user
-    console.log(user.value);
-    if (!user.value) {
-      // redirect them to logout if the user is not there
-      router.push({ path: "/login" });
-    } else {
-      // continue to dashboard
-      router.push({ path: "/" });
-    }
-  } catch (e) {
-    console.log(e);
-  }
-});
+// TO-DO : TypeError: supabase.auth.user is not a function lin49.
+// onMounted(async () => {
+//   console.log("Mounted");
+//   try {
+//     await userStore.fetchUser(); // here we call fetch user
+//     console.log(user.value);
+//     if (!user.value) {
+//       // redirect them to logout if the user is not there
+//       router.push({ path: "/login" });
+//     } else {
+//       // continue to dashboard
+//       router.push({ path: "/" });
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 </script>

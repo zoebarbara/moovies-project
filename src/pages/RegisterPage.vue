@@ -1,15 +1,16 @@
 <template>
   <div class="row full-height">
-    <div class="col login-bg flex flex-center">
+    <div class="col login-bg flex flex-center gt-sm">
       <h1 class="text-white">Basic</h1>
     </div>
     <div class="col full-height flex flex-center items-center">
-      <q-page class="flex flex-center">
+      <q-page class="flex flex-center" style="width: 80%">
         <q-form
+          @submit.prevent="signUpForm()"
           class="column q-gutter-sm"
           action="http://localhost:9000"
           method="GET"
-          style="width: 500px"
+          style="width: 100%"
         >
           <h5>Sign up here</h5>
           <q-input
@@ -83,9 +84,9 @@ import { useUserStore } from "../stores/user.js";
 import { RouterLink, useRouter } from "vue-router";
 
 const userStore = useUserStore();
-
-//Create data
 const router = useRouter();
+
+//Create reactive data
 const name = ref(null);
 const email = ref(null);
 const password = ref(null);
@@ -100,7 +101,7 @@ const signUpForm = async () => {
     try {
       userStore.signUp(email.value, password.value);
       alert("<p>You have registered succesfully!</p>");
-      router.push({ name: "login" });
+      router.push({ name: "emailConfirmation" });
     } catch (error) {
       errorMsg.value = error.message;
       setTimeout(() => {
@@ -116,6 +117,7 @@ const signUpForm = async () => {
   }, 5000);
 };
 </script>
+
 <style>
 .login-bg {
   height: 90vh;
