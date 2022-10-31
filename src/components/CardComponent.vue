@@ -1,18 +1,21 @@
 <template>
   <!-- <div> -->
-  <q-card class="col-3 shadow-3">
-    <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" />
-    <!-- <img src="https://cdn.quasar.dev/img/mountains.jpg" /> -->
-    <!-- <img :src="image" :alt="title"/> -->
-    <!-- <img src="´${{image}}´" /> -->
-    <q-card-section>
-      <HeartIconComponent />
-      <!-- <div class="text-h6">{{ title.value }}</div>
-        <div class="text-subtitle2">{{ description.value }}</div> -->
-      <div class="text-h6">{{ movie.title }}</div>
-      <div class="text-subtitle2">{{ movie.overview }}</div>
-    </q-card-section>
-  </q-card>
+  <q-item
+    class="col-3 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
+    :to="{ name: 'moviedetail', params: { index: movie.id } }"
+  >
+    <q-card class="shadow-3">
+      <img
+        :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+        style="height: 35vw; width: 100%"
+      />
+      <q-card-section class="card-text">
+        <HeartIconComponent />
+        <div class="text-h6">{{ movie.title }}</div>
+        <div class="text-subtitle2">{{ movie.overview }}</div>
+      </q-card-section>
+    </q-card>
+  </q-item>
 </template>
 
 <script setup>
@@ -58,6 +61,10 @@ const props = defineProps({
 } */
 .my-card {
   width: 30%;
+  height: 500px;
+}
+
+.card-text {
   height: 300px;
 }
 </style>

@@ -37,6 +37,17 @@ const routes = [
     ],
   },
   {
+    path: "/moviedetail/:index",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "moviedetail",
+        component: () => import("pages/MovieDetail.vue"),
+      },
+    ],
+  },
+  {
     path: "/emailconfirmation",
     name: "emailconfirmation",
     component: () => import("pages/EmailConfirmation.vue"),

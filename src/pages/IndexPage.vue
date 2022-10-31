@@ -3,7 +3,7 @@
     <h4>Most treding films</h4>
 
     <div
-      class="full-width row wrap justify-center items-start content-start q-gutter-md"
+      class="full-width row wrap justify-center items-start content-start q-gutter-lg"
     >
       <CardComponent
         v-for="movie in movieList"
