@@ -1,15 +1,21 @@
 <template>
   <q-page class="flex flex-center">
     <h4>Favorite Movies</h4>
+    <div v-for="favMovie in FavoriteMovies" :key="favMovie.id">
+      <p>{{ favMovie.title }}</p>
+    </div>
     <div
       class="full-width row wrap justify-center items-start content-start q-gutter-md"
     >
-      <FavCardComponent
+      <div v-for="favMovie in favMoviesStore.favoriteMovies" :key="favMovie.id">
+        <p>{{ favMovie.title }}</p>
+      </div>
+      <!-- <FavCardComponent
         q-gutter-md
         v-for="favMovie in FavoriteMovies"
         :key="favMovie.id"
         :movie="favMovie"
-      />
+      /> -->
     </div>
   </q-page>
 </template>
@@ -28,20 +34,20 @@ const { favMovies } = storeToRefs(favMoviesStore);
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 const REGION = "es";
-const movieList = ref("");
-const favoriteMovies = ref("");
-console.log(favMovies);
 const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
-const fetchFavMovies = () => {
-  console.log("return fetch function" + favMoviesStore.fetchFavMovies());
-  favMoviesStore.fetchFavMovies();
-};
+// const fetchFavMovies = () => {
+//   console.log("return fetch function" + favMoviesStore.fetchFavMovies());
+//   avMoviesStore.fetchFavMovies();
+//   console.log(favMovieList);
+//   console.log(favMovieList.value);
+// };
 
-const props = defineProps(["favMovie"]);
+// This works with hardoceded data
+console.log(favMoviesStore.favoriteMovies);
 
 onMounted(() => {
-  fetchFavMovies();
+  favMoviesStore.fetchFavMovies();
 });
 // console.log(!userStore.user);
 // console.log(userStore.user);

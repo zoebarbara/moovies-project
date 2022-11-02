@@ -31,15 +31,15 @@
 <script setup>
 import HeartIconComponent from "./HeartIconComponent.vue";
 import { useFavoriteMoviesStore } from "../stores/favorite-movies";
-import { ref } from "vue";
 
 const favMoviesStore = useFavoriteMoviesStore();
 
 const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
 const props = defineProps(["movie"]);
-console.log(props.movie);
-const favoriteMovies = ref([]);
+
+// This works with hardoceded data
+// console.log(favMoviesStore.favoriteMovies);
 
 //Add favorite
 const addToFavorites = () => {

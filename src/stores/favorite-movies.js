@@ -7,15 +7,12 @@ export const useFavoriteMoviesStore = defineStore("favoriteMovies", {
   }),
 
   actions: {
-    // async fetchFavMovies() {
-    //   const { data: FavoriteMovies, error } = await supabase
-    //     .from("FavoriteMovies")
-    //     .select("*");
-    //   if (FavoriteMovies) console.log(FavoriteMovies);
-    //   this.FavoriteMovies = FavoriteMovies;
-    //   if (error) console.warn(error);
-    //   if (error) throw error;
-    // },
+    async fetchFavMovies() {
+      const { data: favoriteMovies, error } = await supabase
+        .from("FavoriteMovies")
+        .select("*");
+      this.favoriteMovies = favoriteMovies;
+    },
 
     async addFavoritesToStore(favoriteMovie) {
       console.log(favoriteMovie);
