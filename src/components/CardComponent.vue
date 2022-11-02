@@ -49,7 +49,7 @@ const addToFavorites = () => {
     overview: props.movie.overview,
     img: props.movie.poster_path,
   };
-  favMoviesStore.addFavoritesToStore(favoriteMovie);
+  favMoviesStore.addFavorite(favoriteMovie);
   console.log(favoriteMovie);
   console.log(favMoviesStore);
 };

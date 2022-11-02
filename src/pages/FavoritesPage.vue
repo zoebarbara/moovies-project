@@ -1,57 +1,42 @@
 <template>
   <q-page class="flex flex-center">
-    <h4>Favorite Movies</h4>
-    <div v-for="favMovie in FavoriteMovies" :key="favMovie.id">
-      <p>{{ favMovie.title }}</p>
-    </div>
+    <h4>Favorites Movies</h4>
     <div
       class="full-width row wrap justify-center items-start content-start q-gutter-md"
     >
-      <div v-for="favMovie in favMoviesStore.favoriteMovies" :key="favMovie.id">
-        <p>{{ favMovie.title }}</p>
-      </div>
-      <!-- <FavCardComponent
+      <FavCardComponent
         q-gutter-md
-        v-for="favMovie in FavoriteMovies"
-        :key="favMovie.id"
-        :movie="favMovie"
-      /> -->
+        v-for="movie in array"
+        :key="movie.id"
+        :favMovie="movie"
+      />
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { useUserStore } from "../stores/user.js";
 import { useFavoriteMoviesStore } from "src/stores/favorite-movies";
 import { onMounted, ref } from "vue";
-import { storeToRefs } from "pinia";
+import FavCardComponent from "src/components/FavCardComponent.vue";
 
-const userStore = useUserStore();
+// const props = defineProps(["movie"]);
+const props = defineProps({ favMovie: Object });
 const favMoviesStore = useFavoriteMoviesStore();
-const { user } = storeToRefs(userStore);
-const { favMovies } = storeToRefs(favMoviesStore);
 
-const API_URL = "https://api.themoviedb.org/3";
-const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
-const REGION = "es";
-const IMG_URL = "https://image.tmdb.org/t/p/w500/";
+let arrayFilms = JSON.parse(JSON.stringify(favMoviesStore.favoriteMovies));
+const array = ref(arrayFilms);
 
-// const fetchFavMovies = () => {
-//   console.log("return fetch function" + favMoviesStore.fetchFavMovies());
-//   avMoviesStore.fetchFavMovies();
-//   console.log(favMovieList);
-//   console.log(favMovieList.value);
-// };
-const favMoviesList = favMoviesStore.fetchFavMovies();
-// This works _Proxy {0: {…}, 1: {…}, 2: {…}, 3: {…}}
-console.log(favMoviesStore.favoriteMovies);
-// This doesn't work undefined
-console.log(favMoviesList.value);
-
-onMounted(() => {
-  const favMoviesList = favMoviesStore.fetchFavMovies();
+onMounted(async () => {
+  try {
+    await favMoviesStore.fetchFavMovies();
+  } catch (error) {
+    console.log(error);
+  }
 });
-// console.log(!userStore.user);
-// console.log(userStore.user);
 </script>
-<style></style>
+<style>
+img {
+  width: 200px;
+  height: auto;
+}
+</style>

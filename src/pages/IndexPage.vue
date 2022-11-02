@@ -34,7 +34,7 @@ const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 const REGION = "es";
 const movieList = ref("");
 
-const props = defineProps(["movie"]);
+defineProps(["movie"]);
 
 const fetchMovies = async () => {
   await axios

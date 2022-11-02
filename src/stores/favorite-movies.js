@@ -5,6 +5,11 @@ export const useFavoriteMoviesStore = defineStore("favoriteMovies", {
   state: () => ({
     favoriteMovies: [],
   }),
+  // getters: {
+  //   favs() {
+  //     return this.favoriteMovies;
+  //   },
+  // },
 
   actions: {
     async fetchFavMovies() {
@@ -15,19 +20,32 @@ export const useFavoriteMoviesStore = defineStore("favoriteMovies", {
       if (error) throw error;
     },
 
-    async addFavoritesToStore(favoriteMovie) {
+    async addFavorite(favoriteMovie) {
       console.log(favoriteMovie);
       console.log(favoriteMovie.id);
       const { data, error } = await supabase.from("FavoriteMovies").insert([
         {
-          movie_id: favoriteMovie.id,
-          movie_title: favoriteMovie.title,
-          movie_overview: favoriteMovie.overview,
-          movie_img: favoriteMovie.img,
+          id: favoriteMovie.id,
+          title: favoriteMovie.title,
+          overview: favoriteMovie.overview,
+          img: favoriteMovie.img,
         },
       ]);
       if (data) console.log(data);
       if (error) throw error;
+    },
+
+    async deleteMovie(id) {
+      try {
+        const { error } = await supabase
+          .from("favoriteMovies")
+          .delete()
+          .eq("id", id);
+        this.errors = null;
+        if (error) throw error;
+      } catch (error) {
+        this.errors = "We couldn't delete your movie, try again please. ";
+      }
     },
   },
   persist: {
