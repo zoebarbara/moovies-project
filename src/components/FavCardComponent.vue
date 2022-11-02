@@ -39,9 +39,6 @@ const props = defineProps(["favMovie"]);
 console.log(props.favMovie.title);
 // const favoriteMovies = ref([]);
 
-// This works with hardoceded data
-console.log(favMoviesStore.favoriteMovies);
-
 //Add favorite
 const addToFavorites = () => {
   const favoriteMovie = {

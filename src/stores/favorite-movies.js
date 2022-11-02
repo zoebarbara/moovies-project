@@ -12,6 +12,7 @@ export const useFavoriteMoviesStore = defineStore("favoriteMovies", {
         .from("FavoriteMovies")
         .select("*");
       this.favoriteMovies = favoriteMovies;
+      if (error) throw error;
     },
 
     async addFavoritesToStore(favoriteMovie) {

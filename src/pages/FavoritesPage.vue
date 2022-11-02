@@ -42,12 +42,14 @@ const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 //   console.log(favMovieList);
 //   console.log(favMovieList.value);
 // };
-
-// This works with hardoceded data
+const favMoviesList = favMoviesStore.fetchFavMovies();
+// This works _Proxy {0: {…}, 1: {…}, 2: {…}, 3: {…}}
 console.log(favMoviesStore.favoriteMovies);
+// This doesn't work undefined
+console.log(favMoviesList.value);
 
 onMounted(() => {
-  favMoviesStore.fetchFavMovies();
+  const favMoviesList = favMoviesStore.fetchFavMovies();
 });
 // console.log(!userStore.user);
 // console.log(userStore.user);
