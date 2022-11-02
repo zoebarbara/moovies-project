@@ -1,27 +1,29 @@
 <template>
   <q-icon
-    class="icon"
-    @click="favoriteStore.isFavourite"
-    v-show="favoriteStore.favorite"
+    class="icon text-teal-14"
+    @click="isFavorite()"
+    v-show="favorite"
     name="fa-solid fa-heart"
   />
   <q-icon
-    class="icon"
-    @click="favoriteStore.isFavourite"
-    v-show="!favoriteStore.favorite"
+    class="icon text-teal-14"
+    @click="isFavorite()"
+    v-show="!favorite"
     name="fa-regular fa-heart"
   />
 </template>
 
 <script setup>
-import { useFavoriteStore } from "../stores/favorite";
+import { ref } from "vue";
+const favorite = ref(false);
 
-const favoriteStore = useFavoriteStore();
+const isFavorite = () => {
+  favorite.value = !favorite.value;
+};
 </script>
 
 <style>
 .icon {
-  color: blue;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 </style>

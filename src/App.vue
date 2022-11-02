@@ -7,23 +7,35 @@
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
+import { useUserStore } from "./stores/user.js";
 
 const API_URL = "https://api.themoviedb.org/3";
-// const API_KEY = "5d35e60800e226e95b3d8bc3a754c0cb";
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 const REGION = "es";
 
 const headers = {};
 const movieList = ref("");
+const router = useRouter();
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 
-const fetchMovies = async () => {
-  const data = await axios.get(
-    `${API_URL}/movie/popular?api_key=${API_KEY}&language=${REGION}&page=1&region=${REGION}`
-  );
-  console.log("data", data);
-};
-
-onMounted(() => {
-  fetchMovies();
-});
+// TO-DO : TypeError: supabase.auth.user is not a function lin49.
+// onMounted(async () => {
+//   console.log("Mounted");
+//   try {
+//     await userStore.fetchUser(); // here we call fetch user
+//     console.log(user.value);
+//     if (!user.value) {
+//       // redirect them to logout if the user is not there
+//       router.push({ path: "/login" });
+//     } else {
+//       // continue to dashboard
+//       router.push({ path: "/" });
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 </script>
