@@ -15,7 +15,7 @@
         <q-route-tab to="/" label="Home" />
         <q-route-tab to="/login" label="Login" />
         <q-route-tab to="/register" label="Register" />
-        <q-route-tab to="/moviedetail" label="Movie Detail" />
+        <q-route-tab to="/favorites" label="Favorites" />
         <q-route-tab to="/profile" label="My Profile" />
       </q-tabs>
 

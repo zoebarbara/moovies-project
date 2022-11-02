@@ -59,6 +59,17 @@ const routes = [
     ],
   },
   {
+    path: "/favorites",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "favorites",
+        component: () => import("pages/FavoritesPage.vue"),
+      },
+    ],
+  },
+  {
     path: "/emailconfirmation",
     name: "emailconfirmation",
     component: () => import("pages/EmailConfirmation.vue"),

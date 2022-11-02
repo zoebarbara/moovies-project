@@ -13,9 +13,10 @@
     </div>
   </q-page>
 
-  <div class="q-pa-lg flex flex-center">
+  <!-- pagination -->
+  <!-- <div class="q-pa-lg flex flex-center">
     <q-pagination v-model="current" :max="5" input></q-pagination>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
@@ -23,18 +24,17 @@ import { useUserStore } from "../stores/user.js";
 import { onMounted, ref } from "vue";
 import axios from "axios";
 import CardComponent from "src/components/CardComponent.vue";
-import { supabase } from "src/supabase/supabase";
+import { storeToRefs } from "pinia";
 
 const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
+
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 const REGION = "es";
 const movieList = ref("");
-const favoriteMovies = ref("");
 
-// const props = defineProps({
-//   movie: Object,
-// });
+const props = defineProps(["movie"]);
 
 const fetchMovies = async () => {
   await axios
@@ -48,26 +48,10 @@ const fetchMovies = async () => {
 };
 const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
-// const getFavoriteMovies = async () => {
-//   try {
-//     const { data, error } = await supabase
-//       .from("FavoriteMoviesSmall")
-//       .select("*");
-//     if (error) throw error;
-//     console.log(data);
-//     favoriteMovies.value = data;
-//     console.log(favoriteMovies.value);
-//   } catch (error) {
-//     console.warn(error.message);
-//   }
-// };
-
-// getFavoriteMovies();
-
 onMounted(() => {
   fetchMovies();
 });
-console.log(!userStore.user);
-console.log(userStore.user);
+// console.log(!userStore.user);
+// console.log(userStore.user);
 </script>
 <style></style>
