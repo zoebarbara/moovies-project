@@ -73,7 +73,7 @@ const errorMsg = ref(null);
 const signUpForm = async () => {
   if (email.value && password.value) {
     try {
-      userStore.login(email, password);
+      userStore.login(email.value, password.value);
       alert("You have log in succesfully!");
       router.push({ name: "home" });
     } catch (error) {

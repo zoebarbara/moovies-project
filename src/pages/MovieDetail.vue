@@ -13,7 +13,13 @@
     <div
       class="full-height image-container"
       :style="{
-        background: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
+        backgroundImage: `linear-gradient(
+        to right,
+        rgba(0, 0, 0) 0%,
+        rgba(9, 9, 13, 0.85) 15%,
+        rgba(9, 9, 13, 0.6012998949579832) 26%,
+        rgba(39, 47, 48, 0) 100%
+      ),url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
       }"
     >
       <!-- <q-page class="flex flex-center" style="width: 80%"> </q-page> -->
@@ -30,22 +36,8 @@ const route = useRoute();
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 
-// console.log(`${API_URL}//movie/${route.params.index}?api_key=${API_KEY}`);
-// const urlAddress = computed(
-//   () => `${API_URL}//movie/${route.params.index}?api_key=${API_KEY}`
-// );
-const urlAddress =
-  "https://api.themoviedb.org/3/movie/76341?api_key=5d35e60800e226e95b3d8bc3a754c0cb";
+const urlAddress = `${API_URL}/movie/${route.params.index}?api_key=${API_KEY}`;
 
-// function getData() {
-//   axios
-//     .get(urlAddress)
-//     .then((response) => {
-//       movie.value = response.data.results;
-//       console.log(movie.value);
-//     })
-//     .catch((error) => console.log(error));
-// }
 const fetchMovieDetails = async () => {
   await axios
     .get(urlAddress)
@@ -56,7 +48,10 @@ const fetchMovieDetails = async () => {
     })
     .catch((error) => console.log(error));
 };
-// watch(() => country.value, () =>  getData())
+// watch(
+//   () => movie.value,
+//   () => fetchMovieDetails()
+// );
 onMounted(() => fetchMovieDetails());
 </script>
 <style>
@@ -66,17 +61,9 @@ onMounted(() => fetchMovieDetails());
 }
 .image-container {
   width: 50%;
-  background-image: linear-gradient(
-    to right,
-    rgba(0, 0, 0) 0%,
-    rgba(9, 9, 13, 0.85) 15%,
-    rgba(9, 9, 13, 0.6012998949579832) 26%,
-    rgba(39, 47, 48, 0) 100%
-  );
-  /* url("../assets/the-good-nurse-poster.webp"); */
-  /* url("`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"); */
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
 }
 
 .film-description-container {
@@ -86,3 +73,12 @@ onMounted(() => fetchMovieDetails());
   padding: 5%;
 }
 </style>
+
+<!-- background-image: linear-gradient(
+  to right,
+  rgba(0, 0, 0) 0%,
+  rgba(9, 9, 13, 0.85) 15%,
+  rgba(9, 9, 13, 0.6012998949579832) 26%,
+  rgba(39, 47, 48, 0) 100%
+)
+url("../assets/the-good-nurse-poster.webp"); -->

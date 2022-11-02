@@ -1,64 +1,78 @@
 <template>
-  <!-- <div> -->
-  <q-item
-    class="col-3 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
-    :to="{ name: 'moviedetail', params: { index: movie.id } }"
+  <q-card
+    class="shadow-3 col-3 col-xs-10 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
   >
-    <q-card class="shadow-3">
-      <img
-        :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-        style="height: 35vw; width: 100%"
-      />
-      <q-card-section class="card-text">
-        <HeartIconComponent />
-        <div class="text-h6">{{ movie.title }}</div>
-        <div class="text-subtitle2">{{ movie.overview }}</div>
-      </q-card-section>
-    </q-card>
-  </q-item>
+    <img
+      :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+      style="height: 500px; width: 100%"
+    />
+    <q-card-section class="card-text">
+      <HeartIconComponent />
+      <div class="text-h6">{{ movie.title }}</div>
+      <div class="text-subtitle2">{{ movie.overview }}</div>
+      <q-btn
+        outline
+        rounded
+        color="primary"
+        label="More details"
+        :to="{ name: 'moviedetail', params: { index: movie.id } }"
+      ></q-btn>
+      <q-btn
+        outline
+        rounded
+        color="primary"
+        label="Add to favorites"
+        @click="addToFavorites()"
+      ></q-btn>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script setup>
 import HeartIconComponent from "./HeartIconComponent.vue";
-import axios from "axios";
-import { onMounted, ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useFavoriteMoviesStore } from "../stores/favorite-movies";
 
 const IMG_URL = "https://image.tmdb.org/t/p/w500/";
-const props = defineProps({
-  movie: Object,
-});
 
-// const API_URL = "https://api.themoviedb.org/3";
-// const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
-// const REGION = "es";
-// const headers = {};
-// const movieList = ref("");
-// const route = useRoute();
+const props = defineProps(["movie"]);
+// console.log(props.movie);
+// const favoriteMovies = ref([]);
 
-// const fetchMovies = async () => {
-//   await axios
-//     .get(
-//       `${API_URL}/movie/popular?api_key=${API_KEY}&language=${REGION}&page=1&region=${REGION}`
-//     )
-//     .then((response) => {
-//       // movieList.value = response.data.results;
-//       // const title = movieList.value[0].title;
-//     })
-//     .catch((error) => console.log(error));
+//Add favorite
+const addToFavorites = () => {
+  // console.log(props.movie.id);
+  // console.log(props.movie.title);
+  // console.log(props.movie.overview);
+  // console.log(props.movie.poster_path);
+  let movieId = props.movie.id;
+  let movieTitle = props.movie.title;
+  let movieOverview = props.movie.overview;
+  let movieImg = props.movie.poster_path;
+  // console.log(movie.name, index);
+  // favoriteMovies.value.push({movie.id})
+};
+
+// Delete Favorite
+// const deleteFavorite = (id) => {
+//   if (favoriteMovies.value.length != 0) {
+//     favoriteMovies.value = favoriteMovies.value.filter(
+//       (movie) => movie.id !== id
+//     );
+//     return;
+//   }
 // };
 
-// onMounted(() => {
-//   fetchMovies();
-// });
+//TO_DO: SETUP STORE FAV
+// const favMoviesStore = useFavoriteMoviesStore();
+// const { favoriteMovies } = storeToRefs(favMoviesStore);
+
+// export const useUserStore = defineStore("user", {
+// const userStore = useUserStore();
+// const { user } = storeToRefs(userStore);
+// export const useFavoriteMoviesStore = defineStore("favoriteMovies", {
 </script>
 
 <style>
-/* .card-container {
-  width: 95%;
-  display: flex;
-  wrap: no-wrap;
-} */
 .my-card {
   width: 30%;
   height: 500px;

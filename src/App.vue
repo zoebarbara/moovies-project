@@ -17,21 +17,9 @@ const REGION = "es";
 
 const headers = {};
 const movieList = ref("");
-
-// const fetchMovies = async () => {
-//   const data = await axios.get(
-//     `${API_URL}/movie/popular?api_key=${API_KEY}&language=${REGION}&page=1&region=${REGION}`
-//   );
-//   console.log("data", data);
-// };
-
-// onMounted(() => {
-//   fetchMovies();
-// });
-
 const router = useRouter();
 const userStore = useUserStore();
-const { user } = storeToRefs(useUserStore);
+const { user } = storeToRefs(userStore);
 
 // TO-DO : TypeError: supabase.auth.user is not a function lin49.
 // onMounted(async () => {

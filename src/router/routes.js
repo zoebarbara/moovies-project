@@ -48,6 +48,17 @@ const routes = [
     ],
   },
   {
+    path: "/profile",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "profile",
+        component: () => import("pages/ProfilePage.vue"),
+      },
+    ],
+  },
+  {
     path: "/emailconfirmation",
     name: "emailconfirmation",
     component: () => import("pages/EmailConfirmation.vue"),

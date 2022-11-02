@@ -1,21 +1,29 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header class="bg-primary text-white" height-hint="98">
-      <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-          </q-avatar>
-          Title
-        </q-toolbar-title>
-      </q-toolbar>
+    <q-header
+      elevated
+      class="bg-primary text-white flex justify-between"
+      height-hint="200"
+      style="height: 80px; padding: 0 20px"
+    >
+      <q-btn flat round dense icon="menu" class="q-mr-sm"></q-btn>
+      <!-- <q-avatar>
+          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+        </q-avatar> -->
 
-      <q-tabs align="center">
+      <q-tabs self-end>
         <q-route-tab to="/" label="Home" />
         <q-route-tab to="/login" label="Login" />
         <q-route-tab to="/register" label="Register" />
         <q-route-tab to="/moviedetail" label="Movie Detail" />
+        <q-route-tab to="/profile" label="My Profile" />
       </q-tabs>
+
+      <q-avatar size="70px">
+        <q-item to="/profile">
+          <img src="https://cdn.quasar.dev/img/avatar.png" />
+        </q-item>
+      </q-avatar>
     </q-header>
 
     <q-page-container>
