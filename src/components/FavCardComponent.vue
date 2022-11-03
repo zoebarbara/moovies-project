@@ -29,7 +29,6 @@
         label="Delete Favorite"
         @click="deleteFavorite(favMovie.id)"
       ></q-btn>
-      <!-- <q-btn outline rounded color="primary" label="Delete Favorite"></q-btn> -->
     </q-card-section>
   </q-card>
 </template>
@@ -41,9 +40,9 @@ import { useFavoriteMoviesStore } from "../stores/favorite-movies";
 const favMoviesStore = useFavoriteMoviesStore();
 
 const props = defineProps({ favMovie: Object });
-// const comolates = (movie) => {
-//   console.log("lato pot" + favMovie.Id);
-// };
+const comolates = (movie) => {
+  console.log("lato pot" + favMovie.Id);
+};
 
 //Delete favorite
 const deleteFavorite = async (id) => {
