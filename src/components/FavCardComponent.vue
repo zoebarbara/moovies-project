@@ -39,9 +39,9 @@ import { useFavoriteMoviesStore } from "../stores/favorite-movies";
 
 const favMoviesStore = useFavoriteMoviesStore();
 
-const props = defineProps({ favMovie: Object });
+// const props = defineProps({ favMovie: Object });
 const comolates = (movie) => {
-  console.log("lato pot" + favMovie.Id);
+  console.log("lato por" + movie);
 };
 
 //Delete favorite

@@ -11,7 +11,7 @@
         <div class="text-h5 text-weight-medium text-blue-grey-8">
           {{ movie.title }}
         </div>
-        <HeartIconComponent :favMovie="movie" />
+        <HeartIconComponent />
       </div>
       <!-- <div class="text-description">{{ movie.overview }}</div> -->
       <q-btn

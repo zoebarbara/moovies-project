@@ -1,13 +1,13 @@
 <template>
   <q-page class="flex flex-center column text-center">
-    <text-h2 color="blue-grey" class="title q-mt-xl">
+    <p color="blue-grey" class="title q-mt-xl text-h2">
       <q-icon color="green-13" name="fa-solid fa-bolt" />
-      Hot moovies for today</text-h2
-    >
-    <text-h3 class="q-mb-xl"
-      >Estas son las películas más vistas en los últimos meses. Seleccionadas
-      con cariño para ti.</text-h3
-    >
+      Hot moovies for today
+    </p>
+    <p class="q-mb-xl text-h6 text-blue-grey-5">
+      Estas son las películas más vistas en los últimos meses.<br />
+      Seleccionadas con cariño para ti.
+    </p>
     <div
       class="full-width row wrap justify-center items-start content-start q-gutter-md"
     >
