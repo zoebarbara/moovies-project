@@ -1,5 +1,4 @@
-<template>hola</template>
-<!-- <template>
+<template>
   <q-icon
     class="icon text-teal-14"
     @click="isFavorite()"
@@ -13,7 +12,6 @@
     name="fa-regular fa-heart"
   />
 </template>
-
 
 <script setup>
 import { ref, onMounted } from "vue";
@@ -45,4 +43,4 @@ onMounted(async () => {
 .icon {
   font-size: 1.5rem;
 }
-</style> -->
+</style>

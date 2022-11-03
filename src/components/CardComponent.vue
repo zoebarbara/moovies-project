@@ -8,10 +8,12 @@
     />
     <q-card-section class="card-text justify-between">
       <div class="flex justify-between">
-        <div class="text-h5">{{ movie.title }}</div>
+        <div class="text-h5 text-weight-medium text-blue-grey-8">
+          {{ movie.title }}
+        </div>
         <HeartIconComponent :favMovie="movie" />
       </div>
-      <div class="text-description">{{ movie.overview }}</div>
+      <!-- <div class="text-description">{{ movie.overview }}</div> -->
       <q-btn
         outline
         rounded
@@ -63,10 +65,9 @@ const addToFavorites = () => {
 }
 
 .card-text {
-  height: 290px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  /*justify-content: center; */
 }
 
 .text-description {

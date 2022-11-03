@@ -14,7 +14,7 @@
           :favMovie="movie"
         />
       </div>
-      <div class="text-description">{{ favMovie.overview }}</div>
+      <!-- <div class="text-description">{{ favMovie.overview }}</div> -->
       <q-btn
         outline
         rounded
