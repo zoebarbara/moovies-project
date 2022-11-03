@@ -4,12 +4,15 @@
   >
     <img
       :src="`https://image.tmdb.org/t/p/w500/${favMovie.image}`"
-      style="height: 35rem; width: 100%"
+      style="height: 30rem; width: 100%"
     />
     <q-card-section class="card-text justify-between">
       <div class="flex justify-between">
         <div class="text-h5">{{ favMovie.title }}</div>
-        <HeartIconComponent />
+        <HeartIconComponent
+          @click="comolates(favMovie.title)"
+          :favMovie="movie"
+        />
       </div>
       <div class="text-description">{{ favMovie.overview }}</div>
       <q-btn
@@ -38,6 +41,9 @@ import { useFavoriteMoviesStore } from "../stores/favorite-movies";
 const favMoviesStore = useFavoriteMoviesStore();
 
 const props = defineProps({ favMovie: Object });
+// const comolates = (movie) => {
+//   console.log("lato pot" + favMovie.Id);
+// };
 
 //Delete favorite
 const deleteFavorite = async (id) => {

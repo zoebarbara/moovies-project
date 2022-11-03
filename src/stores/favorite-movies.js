@@ -45,13 +45,13 @@ export const useFavoriteMoviesStore = defineStore("favoriteMovies", {
       }
     },
   },
-  persist: {
-    enabled: true,
-    strategies: [
-      {
-        key: "favoriteMovies",
-        storage: localStorage,
-      },
-    ],
-  },
+  // persist: {
+  //   enabled: true,
+  //   strategies: [
+  //     {
+  //       key: "favoriteMovies",
+  //       storage: localStorage,
+  //     },
+  //   ],
+  // },
 });

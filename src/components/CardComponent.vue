@@ -4,12 +4,12 @@
   >
     <img
       :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-      style="height: 35rem; width: 100%"
+      style="height: 30rem; width: 100%"
     />
     <q-card-section class="card-text justify-between">
       <div class="flex justify-between">
         <div class="text-h5">{{ movie.title }}</div>
-        <HeartIconComponent />
+        <HeartIconComponent :favMovie="movie" />
       </div>
       <div class="text-description">{{ movie.overview }}</div>
       <q-btn
@@ -40,9 +40,6 @@ const favMoviesStore = useFavoriteMoviesStore();
 const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
 const props = defineProps(["movie"]);
-
-// This works with hardoceded data
-// console.log(favMoviesStore.favoriteMovies);
 
 //Add favorite
 const addToFavorites = () => {

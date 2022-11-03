@@ -25,6 +25,7 @@
             class="q-mr-sm"
           ></q-btn>
           <q-btn
+            v-if="isUserLogged"
             outline
             rounded
             color="blue-grey-4"
@@ -33,6 +34,7 @@
             class="q-mr-sm"
           ></q-btn>
           <q-btn
+            v-if="!isUserLogged"
             outline
             rounded
             color="blue-grey-4"
@@ -41,11 +43,13 @@
             class="q-mr-sm"
           ></q-btn>
           <q-btn
+            v-else
             outline
             rounded
             color="blue-grey-4"
-            label="Logout"
+            label="Sign out"
             class="q-mr-sm"
+            @click="signUserOut()"
           ></q-btn>
         </div>
 
@@ -136,17 +140,40 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useUserStore } from "../stores/user.js";
+import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 
 const leftDrawerOpen = ref(false);
-function toggleLeftDrawer() {
+const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value;
-}
+};
 
-console.log;
+const isUserLogged = ref(true);
 
-const userStore = useUserStore();
-const userState = ref(userStore.user);
-console.log(userState.value);
+onMounted(async () => {
+  try {
+    await userStore.fetchUser();
+    if (!user.value) {
+      isUserLogged.value = false;
+    }
+    console.log(user.value);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+const signUserOut = async () => {
+  try {
+    await userStore.logout();
+    await router.push("/login");
+  } catch (e) {
+    console.log(e);
+  }
+};
 </script>
