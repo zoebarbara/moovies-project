@@ -67,7 +67,6 @@ const routes = [
         path: "",
         name: "favorites",
         component: () => import("pages/FavoritesPage.vue"),
-        params: true,
       },
     ],
   },

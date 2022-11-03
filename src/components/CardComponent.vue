@@ -1,22 +1,25 @@
 <template>
   <q-card
-    class="shadow-3 col-3 col-xs-10 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
+    class="shadow-4 col-3 col-xs-10 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
   >
     <img
       :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-      style="height: 500px; width: 100%"
+      style="height: 35rem; width: 100%"
     />
-    <q-card-section class="card-text">
-      <HeartIconComponent />
-      <div class="text-h6">{{ movie.title }}</div>
-      <div class="text-subtitle2">{{ movie.overview }}</div>
+    <q-card-section class="card-text justify-between">
+      <div class="flex justify-between">
+        <div class="text-h5">{{ movie.title }}</div>
+        <HeartIconComponent />
+      </div>
+      <div class="text-description">{{ movie.overview }}</div>
       <q-btn
         outline
         rounded
         color="primary"
         label="More details"
         :to="{ name: 'moviedetail', params: { index: movie.id } }"
-      ></q-btn>
+      >
+      </q-btn>
       <q-btn
         outline
         rounded
@@ -53,34 +56,26 @@ const addToFavorites = () => {
   console.log(favoriteMovie);
   console.log(favMoviesStore);
 };
-
-// Delete Favorite
-// const deleteFavorite = (id) => {
-//   if (favoriteMovies.value.length != 0) {
-//     favoriteMovies.value = favoriteMovies.value.filter(
-//       (movie) => movie.id !== id
-//     );
-//     return;
-//   }
-// };
-
-//TO_DO: SETUP STORE FAV
-// const favMoviesStore = useFavoriteMoviesStore();
-// const { favoriteMovies } = storeToRefs(favMoviesStore);
-
-// export const useUserStore = defineStore("user", {
-// const userStore = useUserStore();
-// const { user } = storeToRefs(userStore);
-// export const useFavoriteMoviesStore = defineStore("favoriteMovies", {
 </script>
 
 <style>
 .my-card {
-  width: 30%;
-  height: 500px;
+  width: 100%;
+  height: 290px;
+  border-radius: 20px;
 }
 
 .card-text {
-  height: 300px;
+  height: 290px;
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center; */
+}
+
+.text-description {
+  height: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: grey;
 }
 </style>

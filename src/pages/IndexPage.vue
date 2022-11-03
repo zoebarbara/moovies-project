@@ -1,6 +1,13 @@
 <template>
-  <q-page class="flex flex-center">
-    <h4>Most treding films</h4>
+  <q-page class="flex flex-center column text-center">
+    <text-h2 color="blue-grey" class="title q-mt-xl">
+      <q-icon color="green-13" name="fa-solid fa-bolt" />
+      Hot moovies for today</text-h2
+    >
+    <text-h3 class="q-mb-xl"
+      >Estas son las películas más vistas en los últimos meses. Seleccionadas
+      con cariño para ti.</text-h3
+    >
     <div
       class="full-width row wrap justify-center items-start content-start q-gutter-md"
     >
@@ -54,4 +61,11 @@ onMounted(() => {
 // console.log(!userStore.user);
 // console.log(userStore.user);
 </script>
-<style></style>
+<style>
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: rgb(33, 39, 43);
+}
+</style>
