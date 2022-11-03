@@ -1,8 +1,6 @@
 <template>
   <div class="row full-height">
-    <div class="col login-bg flex flex-center gt-sm">
-      <h1 class="text-white">Basic</h1>
-    </div>
+    <div class="col login-bg flex flex-center gt-sm"></div>
     <div class="col full-height flex flex-center items-center">
       <q-page class="flex flex-center" style="width: 80%">
         <q-form
@@ -86,4 +84,11 @@ const signUpForm = async () => {
   }
 };
 </script>
-<style></style>
+<style>
+.login-bg {
+  height: 100vh;
+  background-image: url("../assets/40-the-lord-of-the-rings-the-return-of-the-king.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>

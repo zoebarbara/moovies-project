@@ -1,44 +1,152 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header
-      elevated
-      class="bg-primary text-white flex justify-between"
-      height-hint="200"
-      style="height: 80px; padding: 0 20px"
-    >
-      <q-btn flat round dense icon="menu" class="q-mr-sm"></q-btn>
-      <!-- <q-avatar>
-          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-        </q-avatar> -->
+    <q-header elevated class="bg-blue-grey-10 text-white" height-hint="200">
+      <q-toolbar justify-between>
+        <q-toolbar-title>
+          <q-img src="../assets/logo_moovies2-03.png" style="width: 13rem" />
+        </q-toolbar-title>
+        <!-- <q-btn flat round dense icon="menu" class="q-mr-sm"></q-btn> -->
 
-      <q-tabs self-end>
-        <q-route-tab to="/" label="Home" />
-        <q-route-tab to="/login" label="Login" />
-        <q-route-tab to="/register" label="Register" />
-        <q-route-tab to="/favorites" label="Favorites" />
-        <q-route-tab to="/profile" label="My Profile" />
-      </q-tabs>
+        <!-- <q-tabs self-end>
+          <q-route-tab to="/" label="Home" />
+          <q-route-tab to="/login" label="Login" />
+          <q-route-tab to="/register" label="Register" />
+          <q-route-tab to="/favorites" label="Favorites" />
+          <q-route-tab to="/profile" label="My Profile" />
+        </q-tabs> -->
 
-      <q-avatar size="70px">
-        <q-item to="/profile">
-          <img src="https://cdn.quasar.dev/img/avatar.png" />
-        </q-item>
-      </q-avatar>
+        <div class="gt-sm q-mr-sm">
+          <q-btn
+            outline
+            rounded
+            color="blue-grey-4"
+            label="Movies"
+            to="/"
+            class="q-mr-sm"
+          ></q-btn>
+          <q-btn
+            outline
+            rounded
+            color="blue-grey-4"
+            label="Favoritas"
+            to="/favorites"
+            class="q-mr-sm"
+          ></q-btn>
+          <q-btn
+            outline
+            rounded
+            color="blue-grey-4"
+            label="Login"
+            to="/login"
+            class="q-mr-sm"
+          ></q-btn>
+          <q-btn
+            outline
+            rounded
+            color="blue-grey-4"
+            label="Logout"
+            class="q-mr-sm"
+          ></q-btn>
+        </div>
+
+        <q-avatar class="gt-sm q-mr-xl">
+          <img src="https://cdn.quasar.dev/img/avatar.png" to="/profile" />
+        </q-avatar>
+
+        <div class="lt-md q-mr-ms">
+          <q-btn
+            flat
+            dense
+            round
+            @click="leftDrawerOpen = !leftDrawerOpen"
+            icon="menu"
+            aria-label="Menu"
+          ></q-btn>
+        </div>
+      </q-toolbar>
     </q-header>
+
+    <q-drawer v-model="leftDrawerOpen" bordered class="bg-grey-2">
+      <q-list>
+        <q-item-label header>Menu</q-item-label>
+        <q-item
+          clickable
+          target="_blank"
+          rel="noopener"
+          href="https://quasar.dev"
+        >
+          <q-item-section avatar>
+            <q-avatar
+              ><img src="https://cdn.quasar.dev/img/avatar.png" to="/profile"
+            /></q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Mi perfil</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          target="_blank"
+          rel="noopener"
+          href="https://github.quasar.dev"
+        >
+          <q-item-section avatar>
+            <q-icon color="blue-grey" name="fa-solid fa-film" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Películas</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          target="_blank"
+          rel="noopener"
+          href="http://chat.quasar.dev"
+        >
+          <q-item-section avatar>
+            <q-icon color="blue-grey" name="fa-solid fa-heart" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Favoritas</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          target="_blank"
+          rel="noopener"
+          href="https://forum.quasar.dev"
+        >
+          <q-item-section avatar>
+            <q-icon
+              color="blue-grey"
+              name="fa-solid fa-arrow-right-from-bracket"
+            />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Cerrar sesión</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
-
-    <!-- <q-footer elevated class="bg-grey-8 text-white">
-      <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-          </q-avatar>
-          <div>Title</div>
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-footer> -->
   </q-layout>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import { useUserStore } from "../stores/user.js";
+
+const leftDrawerOpen = ref(false);
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
+
+console.log;
+
+const userStore = useUserStore();
+const userState = ref(userStore.user);
+console.log(userState.value);
+</script>

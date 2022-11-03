@@ -44,6 +44,7 @@ const routes = [
         path: "",
         name: "moviedetail",
         component: () => import("pages/MovieDetail.vue"),
+        params: true,
       },
     ],
   },

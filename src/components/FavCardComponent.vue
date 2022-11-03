@@ -1,29 +1,32 @@
 <template>
   <q-card
-    class="shadow-3 col-3 col-xs-10 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
+    class="shadow4 col-3 col-xs-10 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
   >
     <img
-      :src="`https://image.tmdb.org/t/p/w500/${favMovie.poster_path}`"
-      style="height: 500px; width: 100%"
+      :src="`https://image.tmdb.org/t/p/w500/${favMovie.image}`"
+      style="height: 35rem; width: 100%"
     />
-    <q-card-section class="card-text">
-      <HeartIconComponent />
-      <div class="text-h6">{{ favMovie.title }}</div>
-      <div class="text-subtitle2">{{ favMovie.overview }}</div>
+    <q-card-section class="card-text justify-between">
+      <div class="flex justify-between">
+        <div class="text-h5">{{ favMovie.title }}</div>
+        <HeartIconComponent />
+      </div>
+      <div class="text-description">{{ favMovie.overview }}</div>
       <q-btn
         outline
         rounded
         color="primary"
         label="More details"
-        :to="{ name: 'moviedetail', params: { index: favMovie.id } }"
+        :to="{ name: 'moviedetail', params: { index: favMovie.iden } }"
       ></q-btn>
       <q-btn
         outline
         rounded
         color="primary"
-        label="Add to favorites"
-        @click="addToFavorites()"
+        label="Delete Favorite"
+        @click="deleteFavorite(favMovie.id)"
       ></q-btn>
+      <!-- <q-btn outline rounded color="primary" label="Delete Favorite"></q-btn> -->
     </q-card-section>
   </q-card>
 </template>
@@ -33,34 +36,39 @@ import HeartIconComponent from "./HeartIconComponent.vue";
 import { useFavoriteMoviesStore } from "../stores/favorite-movies";
 
 const favMoviesStore = useFavoriteMoviesStore();
-const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
-const props = defineProps(["favMovie"]);
-console.log(props.favMovie.title);
-// const favoriteMovies = ref([]);
+const props = defineProps({ favMovie: Object });
 
-//Add favorite
-const addToFavorites = () => {
-  const favoriteMovie = {
-    id: props.movie.id,
-    title: props.movie.title,
-    overview: props.movie.overview,
-    img: props.movie.poster_path,
-  };
-
-  favMoviesStore.addFavoritesToStore(favoriteMovie);
-  console.log(favoriteMovie);
-  console.log(favMoviesStore);
+//Delete favorite
+const deleteFavorite = async (id) => {
+  try {
+    console.log(id);
+    await favMoviesStore.deleteMovie(id);
+    await favMoviesStore.fetchFavMovies();
+  } catch (e) {
+    console.log(e);
+  }
 };
 </script>
 
 <style>
 .my-card {
-  width: 30%;
-  height: 500px;
+  width: 100%;
+  height: 290px;
+  border-radius: 20px;
 }
 
 .card-text {
-  height: 300px;
+  height: 290px;
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center; */
+}
+
+.text-description {
+  height: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: grey;
 }
 </style>
