@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center column text-center">
-    <p color="blue-grey" class="title q-mt-xl text-h2">
+    <p color="blue-grey" class="title q-mt-xl text-h4">
       <q-icon color="green-13" name="fa-solid fa-bolt" />
       Hot moovies for today
     </p>
@@ -60,7 +60,7 @@ onMounted(() => {
 });
 </script>
 <style>
-.title {
+.title-index {
   font-family: "Montserrat", sans-serif;
   font-size: 2rem;
   font-weight: 600;

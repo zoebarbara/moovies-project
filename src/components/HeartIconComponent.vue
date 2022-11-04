@@ -74,5 +74,9 @@ onMounted(() => {
 <style>
 .icon {
   font-size: 1.5rem;
+  background: linear-gradient(to right, rgb(161, 210, 16), rgb(3, 129, 83));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

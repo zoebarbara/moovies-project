@@ -1,36 +1,76 @@
 <template>
-  <div class="row container">
-    <!-- <div class="flex column film-description-container text-white" v-if="movie"> -->
-    <div class="flex column film-description-container text-white">
-      <p class="text-h3 text-lime-14 title">{{ movie.title }}</p>
-      <h5 class="tagline" v-if="movie.tagline">{{ movie.tagline }}</h5>
-      <div class="q-pa-md genres flex row">
-        <q-chip
-          v-for="genre in movie.genres"
-          :key="genre.id"
-          icon="bookmark"
-          color="lime-14"
-        >
-          {{ genre.name }}
-        </q-chip>
+  <q-page class="bg-black">
+    <div class="container">
+      <!-- <div class="flex column film-description-container text-white" v-if="movie"> -->
+      <div class="film-description-container text-white">
+        <p class="text-h3 text-lime-14 title">{{ movie.title }}</p>
+        <h5 class="tagline" v-if="movie.tagline">{{ movie.tagline }}</h5>
+        <p class="text-blue-grey-4">{{ movie.overview }}</p>
+        <div class="q-pa-md genres flex row">
+          <q-chip
+            v-for="genre in movie.genres"
+            :key="genre.id"
+            giticon="bookmark"
+            color="lime-14"
+            class="movieDetails-chip"
+          >
+            {{ genre.name }}
+          </q-chip>
+        </div>
+
+        <p>Main Characters</p>
+        <div class="cast-container">
+          <div
+            class="text-lime-13 flex column text-center cast-details"
+            v-if="artists.cast"
+          >
+            <img
+              :src="`https://image.tmdb.org/t/p/w500/${artists.cast[0].profile_path}`"
+            />
+
+            {{ artists.cast[0].name }}
+          </div>
+          <div
+            class="text-lime-13 flex column text-center cast-details"
+            v-if="artists.cast"
+          >
+            <img
+              :src="`https://image.tmdb.org/t/p/w500/${artists.cast[1].profile_path}`"
+            />
+
+            {{ artists.cast[1].name }}
+          </div>
+          <div
+            class="text-lime-13 flex column text-center cast-details"
+            v-if="artists.cast"
+          >
+            <img
+              :src="`https://image.tmdb.org/t/p/w500/${artists.cast[2].profile_path}`"
+            />
+
+            {{ artists.cast[2].name }}
+          </div>
+          <div
+            class="text-lime-13 flex column text-center cast-details"
+            v-if="artists.cast"
+          >
+            <img
+              :src="`https://image.tmdb.org/t/p/w500/${artists.cast[3].profile_path}`"
+            />
+
+            {{ artists.cast[3].name }}
+          </div>
+        </div>
       </div>
-      <p class="text-blue-grey-4">{{ movie.overview }}</p>
+      <div
+        class="image-container"
+        :style="{
+          backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
+          backgroundPosition: `top center`,
+        }"
+      ></div>
     </div>
-    <div
-      class="full-height image-container"
-      :style="{
-        backgroundImage: `linear-gradient(
-        to right,
-        rgba(0, 0, 0) 0%,
-        rgba(9, 9, 13, 0.85) 15%,
-        rgba(9, 9, 13, 0.6012998949579832) 26%,
-        rgba(39, 47, 48, 0) 100%
-      ),url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
-      }"
-    >
-      <!-- <q-page class="flex flex-center" style="width: 80%"> </q-page> -->
-    </div>
-  </div>
+  </q-page>
 </template>
 <script setup>
 import { useRoute } from "vue-router";
@@ -38,11 +78,13 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const movie = ref("");
+const artists = ref("");
 const route = useRoute();
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 
 const urlAddress = `${API_URL}/movie/${route.params.index}?api_key=${API_KEY}`;
+const urlCastAddress = `${API_URL}/movie/${route.params.index}/credits?api_key=${API_KEY}&language=en-US`;
 
 const fetchMovieDetails = async () => {
   await axios
@@ -55,18 +97,40 @@ const fetchMovieDetails = async () => {
     .catch((error) => console.log(error));
 };
 
-onMounted(() => fetchMovieDetails());
+const fetchCast = async () => {
+  await axios
+    .get(urlCastAddress)
+    .then((response) => {
+      artists.value = response.data;
+      console.log(response.data);
+      console.log(artists.value);
+    })
+    .catch((error) => console.log(error));
+};
+
+const fetchData = () => {
+  fetchMovieDetails();
+  fetchCast();
+};
+
+onMounted(() => fetchData());
 </script>
 <style>
 .container {
   height: 100vh;
   background-color: black;
+  display: flex;
 }
 .image-container {
   width: 50%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+  mask-image: linear-gradient(
+    to left,
+    rgba(0, 0, 0) 60%,
+    rgba(39, 47, 48, 0) 100%
+  );
 }
 
 .film-description-container {
@@ -92,9 +156,51 @@ onMounted(() => fetchMovieDetails());
 .tagline {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
+  margin: 0.2rem 0 0.7rem 0;
 }
 
 .genres {
   display: flex;
+}
+
+.cast-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cast-container img {
+  width: 7rem;
+  height: auto;
+  border-radius: 20px;
+  margin: 0.5rem;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 100vh;
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0.8) 70%,
+      rgba(0, 0, 0, 0)
+    );
+  }
+
+  .film-description-container {
+    width: 100%;
+    height: 70vh;
+  }
+
+  .cast-container {
+    display: flex;
+    width: 100%;
+  }
 }
 </style>
