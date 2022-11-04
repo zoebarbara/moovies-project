@@ -21,18 +21,15 @@ const router = useRouter();
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 
-// TO-DO : TypeError: supabase.auth.user is not a function lin49.
 // onMounted(async () => {
-//   console.log("Mounted");
 //   try {
-//     await userStore.fetchUser(); // here we call fetch user
-//     console.log(user.value);
+//     await userStore.fetchUser();
 //     if (!user.value) {
-//       // redirect them to logout if the user is not there
-//       router.push({ path: "/login" });
+//       // Not logged user. Redirect them to Log in page
+//       // router.push({ path: "/login" });
 //     } else {
-//       // continue to dashboard
-//       router.push({ path: "/" });
+//       // Logged user. Redirect their dashboard
+//       // router.push({ path: "/favorites" });
 //     }
 //   } catch (e) {
 //     console.log(e);

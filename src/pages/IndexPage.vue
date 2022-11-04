@@ -1,13 +1,13 @@
 <template>
   <q-page class="flex flex-center column text-center">
-    <text-h2 color="blue-grey" class="title q-mt-xl">
+    <p color="blue-grey" class="title q-mt-xl text-h4">
       <q-icon color="green-13" name="fa-solid fa-bolt" />
-      Hot moovies for today</text-h2
-    >
-    <text-h3 class="q-mb-xl"
-      >Estas son las películas más vistas en los últimos meses. Seleccionadas
-      con cariño para ti.</text-h3
-    >
+      Hot moovies for today
+    </p>
+    <p class="q-mb-xl text-h6 text-blue-grey-5">
+      Estas son las películas más vistas en los últimos meses.<br />
+      Seleccionadas con cariño para ti.
+    </p>
     <div
       class="full-width row wrap justify-center items-start content-start q-gutter-md"
     >
@@ -28,20 +28,21 @@
 
 <script setup>
 import { useUserStore } from "../stores/user.js";
-import { onMounted, ref } from "vue";
+import { useFavoriteMoviesStore } from "../stores/favorite-movies";
+import { onMounted, ref, watch } from "vue";
+import { storeToRefs } from "pinia";
 import axios from "axios";
 import CardComponent from "src/components/CardComponent.vue";
-import { storeToRefs } from "pinia";
 
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+//FavoriteMovies Store
+const favMoviesStore = useFavoriteMoviesStore();
+const movieList = ref("");
+defineProps(["movie"]);
 
+//Call to TMDB API
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 const REGION = "es";
-const movieList = ref("");
-
-defineProps(["movie"]);
 
 const fetchMovies = async () => {
   await axios
@@ -53,16 +54,13 @@ const fetchMovies = async () => {
     })
     .catch((error) => console.log(error));
 };
-const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
 onMounted(() => {
   fetchMovies();
 });
-// console.log(!userStore.user);
-// console.log(userStore.user);
 </script>
 <style>
-.title {
+.title-index {
   font-family: "Montserrat", sans-serif;
   font-size: 2rem;
   font-weight: 600;
