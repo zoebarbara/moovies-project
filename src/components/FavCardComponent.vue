@@ -11,7 +11,7 @@
         <div class="text-h5">{{ movie.title }}</div>
         <HeartIconComponent :movie="movie" />
       </div>
-      <div class="text-description">{{ favMovie.overview }}</div>
+      <div class="text-description">{{ movie.overview }}</div>
       <q-btn
         outline
         rounded
