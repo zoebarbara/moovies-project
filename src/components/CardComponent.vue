@@ -11,7 +11,7 @@
         <div class="text-h5 text-weight-medium text-blue-grey-8">
           {{ movie.title }}
         </div>
-        <HeartIconComponent />
+        <HeartIconComponent :movie="movie" />
       </div>
       <!-- <div class="text-description">{{ movie.overview }}</div> -->
       <q-btn
@@ -41,7 +41,7 @@ const favMoviesStore = useFavoriteMoviesStore();
 
 const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
-const props = defineProps(["movie"]);
+const props = defineProps({ movie: Object });
 
 //Add favorite
 const addToFavorites = () => {

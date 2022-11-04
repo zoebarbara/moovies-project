@@ -10,11 +10,17 @@
     <div
       class="full-width row wrap justify-center items-start content-start q-gutter-md"
     >
-      <FavCardComponent
+      <!-- <FavCardComponent
         q-gutter-md
         v-for="movie in favoriteMovies"
         :key="movie.id"
         :favMovie="movie"
+      /> -->
+      <FavCardComponent
+        q-gutter-md
+        v-for="movie in favoriteMovies"
+        :key="movie.id"
+        :movie="movie"
       />
     </div>
   </q-page>
@@ -22,7 +28,7 @@
 
 <script setup>
 import { useFavoriteMoviesStore } from "src/stores/favorite-movies";
-import { onMounted, ref, toRaw, watch, reactive } from "vue";
+import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import FavCardComponent from "src/components/FavCardComponent.vue";
 
