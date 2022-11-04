@@ -1,15 +1,15 @@
 <template>
   <q-card
-    class="shadow-4 col-3 col-xs-11 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
+    class="shadow-4 col-3 col-xs-10 col-sm-5 col-md-3 col-lg-2 col-xl-1 my-card"
   >
-    <!-- <img
+    <img
       :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
       style="height: 30rem; width: 100%"
-    /> -->
-    <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" />
+    />
+    <!-- <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" /> -->
     <q-card-section class="card-text justify-between">
       <div class="flex justify-between">
-        <div class="text-h5 text-weight-medium text-blue-grey-8">
+        <div class="text-h6 text-weight-medium text-blue-grey-8">
           {{ movie.title }}
         </div>
         <HeartIconComponent :movie="movie" />
@@ -63,7 +63,7 @@ const addToFavorites = () => {
   border-radius: 20px;
 }
 
-@media screen and (max-width: 640px) {
+/* @media screen and (max-width: 640px) {
   .my-card {
     background-color: blue;
   }
@@ -79,13 +79,13 @@ const addToFavorites = () => {
   .img {
     background: green;
   }
-}
+} */
 
 .card-text {
-  padding: 1.5rem;
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  height: 270px;
+  height: 250px;
 }
 
 .text-description {
@@ -93,6 +93,5 @@ const addToFavorites = () => {
   overflow: hidden;
   text-overflow: ellipsis;
   color: grey;
-  padding: 0rem 0.2rem;
 }
 </style>

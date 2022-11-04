@@ -1,24 +1,12 @@
 <template>
-  <!-- <q-icon
-    class="icon text-teal-14"
-    @click="isFavorite(), comoLates(favMovie.title)"
-    v-show="favorite"
-    name="fa-solid fa-heart"
-  />
   <q-icon
-    class="icon text-teal-14"
-    @click="isFavorite(), comoLates(favMovie.title)"
-    v-show="!favorite"
-    name="fa-regular fa-heart"
-  /> -->
-  <q-icon
-    class="icon text-teal-14"
+    class="icon text-green-13"
     @click="deleteFavorite(movie.id)"
     v-show="favorite"
     name="fa-solid fa-heart"
   />
   <q-icon
-    class="icon text-teal-14"
+    class="icon text-green-13"
     @click="addToFavorites()"
     v-show="!favorite"
     name="fa-regular fa-heart"
@@ -28,21 +16,15 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { useFavoriteMoviesStore } from "../stores/favorite-movies.js";
-import { storeToRefs } from "pinia";
 
 const props = defineProps({ movie: Object });
 const favMoviesStore = useFavoriteMoviesStore();
-const { favMovie } = storeToRefs(favMoviesStore);
 const favorite = ref();
-
-const comoLates = (movie) => {
-  console.log("lato por" + movie);
-};
 
 //Delete favorite
 const deleteFavorite = async (id) => {
   try {
-    console.log(id);
+    alert(`Film has been deleted`);
     await favMoviesStore.deleteMovie(id);
     await favMoviesStore.fetchFavMovies();
     favorite.value = false;
@@ -61,6 +43,7 @@ const addToFavorites = () => {
   };
   favMoviesStore.addFavorite(favoriteMovie);
   favorite.value = true;
+  alert(`Film ${props.movie.title} has been saved in your favorites`);
   console.log(favoriteMovie);
   console.log(favMoviesStore);
 };
@@ -82,15 +65,6 @@ watch(
   () => favMoviesStore.favoriteMovies,
   () => checkFavorites(props.movie)
 );
-// watch(favMovie, async () => {
-//     try {
-//       const res = await fetch('https://yesno.wtf/api')
-//       answer.value = (await res.json()).answer
-//     } catch (error) {
-//       answer.value = 'Error! Could not reach the API. ' + error
-//     }
-//   }
-// })
 
 onMounted(() => {
   checkFavorites(props.movie);
