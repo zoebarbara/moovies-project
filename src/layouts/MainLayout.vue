@@ -3,7 +3,11 @@
     <q-header elevated class="bg-blue-grey-10 text-white" height-hint="200">
       <q-toolbar justify-between>
         <q-toolbar-title>
-          <q-img src="../assets/logo_moovies2-03.png" style="width: 13rem" />
+          <q-img
+            src="../assets/logo_moovies2-03.png"
+            style="width: 13rem"
+            to="/"
+          />
         </q-toolbar-title>
         <!-- <q-btn flat round dense icon="menu" class="q-mr-sm"></q-btn> -->
 
@@ -25,6 +29,7 @@
             class="q-mr-sm"
           ></q-btn>
           <q-btn
+            v-if="isUserLogged"
             outline
             rounded
             color="blue-grey-4"
@@ -33,6 +38,7 @@
             class="q-mr-sm"
           ></q-btn>
           <q-btn
+            v-if="!isUserLogged"
             outline
             rounded
             color="blue-grey-4"
@@ -41,11 +47,13 @@
             class="q-mr-sm"
           ></q-btn>
           <q-btn
+            v-else
             outline
             rounded
             color="blue-grey-4"
-            label="Logout"
+            label="Sign out"
             class="q-mr-sm"
+            @click="signUserOut()"
           ></q-btn>
         </div>
 
@@ -69,27 +77,17 @@
     <q-drawer v-model="leftDrawerOpen" bordered class="bg-grey-2">
       <q-list>
         <q-item-label header>Menu</q-item-label>
-        <q-item
-          clickable
-          target="_blank"
-          rel="noopener"
-          href="https://quasar.dev"
-        >
+        <q-item clickable target="_blank" rel="noopener" to="/profile">
           <q-item-section avatar>
             <q-avatar
-              ><img src="https://cdn.quasar.dev/img/avatar.png" to="/profile"
+              ><img src="https://cdn.quasar.dev/img/avatar.png"
             /></q-avatar>
           </q-item-section>
           <q-item-section>
             <q-item-label>Mi perfil</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item
-          clickable
-          target="_blank"
-          rel="noopener"
-          href="https://github.quasar.dev"
-        >
+        <q-item clickable target="_blank" rel="noopener" to="/">
           <q-item-section avatar>
             <q-icon color="blue-grey" name="fa-solid fa-film" />
           </q-item-section>
@@ -97,12 +95,7 @@
             <q-item-label>Películas</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item
-          clickable
-          target="_blank"
-          rel="noopener"
-          href="http://chat.quasar.dev"
-        >
+        <q-item clickable target="_blank" rel="noopener" to="/favorites">
           <q-item-section avatar>
             <q-icon color="blue-grey" name="fa-solid fa-heart" />
           </q-item-section>
@@ -110,12 +103,7 @@
             <q-item-label>Favoritas</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item
-          clickable
-          target="_blank"
-          rel="noopener"
-          href="https://forum.quasar.dev"
-        >
+        <q-item clickable target="_blank" rel="noopener" @click="signUserOut()">
           <q-item-section avatar>
             <q-icon
               color="blue-grey"
@@ -136,17 +124,40 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useUserStore } from "../stores/user.js";
+import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 
 const leftDrawerOpen = ref(false);
-function toggleLeftDrawer() {
+const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value;
-}
+};
 
-console.log;
+const isUserLogged = ref(true);
 
-const userStore = useUserStore();
-const userState = ref(userStore.user);
-console.log(userState.value);
+onMounted(async () => {
+  try {
+    await userStore.fetchUser();
+    if (!user.value) {
+      isUserLogged.value = false;
+    }
+    console.log(user.value);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const signUserOut = async () => {
+  try {
+    await userStore.logout();
+    await router.push("/login");
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>

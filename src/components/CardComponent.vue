@@ -4,12 +4,14 @@
   >
     <img
       :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-      style="height: 35rem; width: 100%"
+      style="height: 30rem; width: 100%"
     />
     <q-card-section class="card-text justify-between">
       <div class="flex justify-between">
-        <div class="text-h5">{{ movie.title }}</div>
-        <HeartIconComponent />
+        <div class="text-h5 text-weight-medium text-blue-grey-8">
+          {{ movie.title }}
+        </div>
+        <HeartIconComponent :movie="movie" />
       </div>
       <div class="text-description">{{ movie.overview }}</div>
       <q-btn
@@ -20,13 +22,13 @@
         :to="{ name: 'moviedetail', params: { index: movie.id } }"
       >
       </q-btn>
-      <q-btn
+      <!-- <q-btn
         outline
         rounded
         color="primary"
         label="Add to favorites"
         @click="addToFavorites()"
-      ></q-btn>
+      ></q-btn> -->
     </q-card-section>
   </q-card>
 </template>
@@ -39,10 +41,7 @@ const favMoviesStore = useFavoriteMoviesStore();
 
 const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
-const props = defineProps(["movie"]);
-
-// This works with hardoceded data
-// console.log(favMoviesStore.favoriteMovies);
+const props = defineProps({ movie: Object });
 
 //Add favorite
 const addToFavorites = () => {
@@ -66,10 +65,9 @@ const addToFavorites = () => {
 }
 
 .card-text {
-  height: 290px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  /*justify-content: center; */
 }
 
 .text-description {
