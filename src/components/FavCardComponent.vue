@@ -1,6 +1,6 @@
 <template>
   <q-card
-    class="shadow-4 col-3 col-xs-10 col-sm-9 col-md-4 col-lg-3 col-xl-2 my-card"
+    class="shadow-4 col-3 col-xs-10 col-sm-5 col-md-3 col-lg-2 col-xl-1 my-card"
   >
     <img
       :src="`https://image.tmdb.org/t/p/w500/${movie.image}`"
@@ -25,7 +25,7 @@
 
 <script setup>
 import HeartIconComponent from "./HeartIconComponent.vue";
-import { useFavoriteMoviesStore } from "../stores/favorite-movies";
+// import { useFavoriteMoviesStore } from "../stores/favorite-movies";
 
 const props = defineProps({ movie: Object });
 </script>
@@ -41,7 +41,6 @@ const props = defineProps({ movie: Object });
   height: 290px;
   display: flex;
   flex-direction: column;
-  /*justify-content: center; */
 }
 
 .text-description {

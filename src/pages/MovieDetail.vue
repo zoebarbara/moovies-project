@@ -2,13 +2,19 @@
   <div class="row container">
     <!-- <div class="flex column film-description-container text-white" v-if="movie"> -->
     <div class="flex column film-description-container text-white">
-      <h3>{{ movie.title }}</h3>
-      <h5>{{ movie.tagline }}</h5>
-      <h4>2022</h4>
-      <ul v-for="genre in movie.genres" :key="genre.id">
-        <li>{{ genre.name }}</li>
-      </ul>
-      <p>{{ movie.overview }}</p>
+      <p class="text-h3 text-lime-14 title">{{ movie.title }}</p>
+      <h5 class="tagline" v-if="movie.tagline">{{ movie.tagline }}</h5>
+      <div class="q-pa-md genres flex row">
+        <q-chip
+          v-for="genre in movie.genres"
+          :key="genre.id"
+          icon="bookmark"
+          color="lime-14"
+        >
+          {{ genre.name }}
+        </q-chip>
+      </div>
+      <p class="text-blue-grey-4">{{ movie.overview }}</p>
     </div>
     <div
       class="full-height image-container"
@@ -28,7 +34,7 @@
 </template>
 <script setup>
 import { useRoute } from "vue-router";
-import { computed, watch, ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const movie = ref("");
@@ -48,10 +54,7 @@ const fetchMovieDetails = async () => {
     })
     .catch((error) => console.log(error));
 };
-// watch(
-//   () => movie.value,
-//   () => fetchMovieDetails()
-// );
+
 onMounted(() => fetchMovieDetails());
 </script>
 <style>
@@ -71,14 +74,27 @@ onMounted(() => fetchMovieDetails());
   height: 100vh;
   width: 50%;
   padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  background: linear-gradient(to right, rgb(202, 242, 84), rgb(3, 129, 83));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+.genres {
+  display: flex;
 }
 </style>
-
-<!-- background-image: linear-gradient(
-  to right,
-  rgba(0, 0, 0) 0%,
-  rgba(9, 9, 13, 0.85) 15%,
-  rgba(9, 9, 13, 0.6012998949579832) 26%,
-  rgba(39, 47, 48, 0) 100%
-)
-url("../assets/the-good-nurse-poster.webp"); -->
