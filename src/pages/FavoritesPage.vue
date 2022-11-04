@@ -1,10 +1,9 @@
 <template>
   <q-page class="flex flex-center column text-center">
-    <p color="blue-grey" class="title q-mt-xl text-h3">
-      A curated selection of your
-      <q-icon color="green-13" name="fa-solid fa-heart" /> movies
+    <p color="blue-grey" class="title q-mt-xl text-h4 q-mx-md">
+      A curated selection of your favorite movies
     </p>
-    <p class="q-mb-xl text-h6 text-blue-grey-5">
+    <p class="q-mb-xl text-h6 text-blue-grey-5 q-mx-md">
       Estas son las películas que te han cambiado la vida.
     </p>
     <div
