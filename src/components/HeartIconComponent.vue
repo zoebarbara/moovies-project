@@ -26,18 +26,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useFavoriteMoviesStore } from "../stores/favorite-movies.js";
 import { storeToRefs } from "pinia";
 
 const props = defineProps({ movie: Object });
 const favMoviesStore = useFavoriteMoviesStore();
-// const { favMovie } = storeToRefs(favMovieStore);
+const { favMovie } = storeToRefs(favMoviesStore);
 const favorite = ref();
-
-// const isFavorite = () => {
-//   favorite.value = !favorite.value;
-// };
 
 const comoLates = (movie) => {
   console.log("lato por" + movie);
@@ -69,24 +65,36 @@ const addToFavorites = () => {
   console.log(favMoviesStore);
 };
 
-//initialize state
-// const initialize = () => {
+const checkFavorites = (movie) => {
+  favMoviesStore.favoriteMovies.some(function (element) {
+    if (element.title === movie.title) {
+      return (favorite.value = true);
+      console.log(favorite.value);
+      console.log(movie.title);
+    } else {
+      return (favorite.value = false);
+      console.log(favorite.value);
+    }
+  });
+};
 
-//   map(favMoviesStore.favoriteMovies => )
-// }
-console.log(favMoviesStore.favoriteMovies);
-
-// onMounted(async () => {
-//   try {
-//     await userStore.fetchUser();
-//     if (!user.value) {
-//       isUserLogged.value = false;
+watch(
+  () => favMoviesStore.favoriteMovies,
+  () => checkFavorites(props.movie)
+);
+// watch(favMovie, async () => {
+//     try {
+//       const res = await fetch('https://yesno.wtf/api')
+//       answer.value = (await res.json()).answer
+//     } catch (error) {
+//       answer.value = 'Error! Could not reach the API. ' + error
 //     }
-//     console.log(user.value);
-//   } catch (e) {
-//     console.log(e);
 //   }
-// });
+// })
+
+onMounted(() => {
+  checkFavorites(props.movie);
+});
 </script>
 
 <style>

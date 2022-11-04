@@ -13,7 +13,7 @@
         </div>
         <HeartIconComponent :movie="movie" />
       </div>
-      <!-- <div class="text-description">{{ movie.overview }}</div> -->
+      <div class="text-description">{{ movie.overview }}</div>
       <q-btn
         outline
         rounded
@@ -22,13 +22,13 @@
         :to="{ name: 'moviedetail', params: { index: movie.id } }"
       >
       </q-btn>
-      <q-btn
+      <!-- <q-btn
         outline
         rounded
         color="primary"
         label="Add to favorites"
         @click="addToFavorites()"
-      ></q-btn>
+      ></q-btn> -->
     </q-card-section>
   </q-card>
 </template>

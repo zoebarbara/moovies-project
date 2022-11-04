@@ -28,20 +28,21 @@
 
 <script setup>
 import { useUserStore } from "../stores/user.js";
-import { onMounted, ref } from "vue";
+import { useFavoriteMoviesStore } from "../stores/favorite-movies";
+import { onMounted, ref, watch } from "vue";
+import { storeToRefs } from "pinia";
 import axios from "axios";
 import CardComponent from "src/components/CardComponent.vue";
-import { storeToRefs } from "pinia";
 
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+//FavoriteMovies Store
+const favMoviesStore = useFavoriteMoviesStore();
+const movieList = ref("");
+defineProps(["movie"]);
 
+//Call to TMDB API
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 const REGION = "es";
-const movieList = ref("");
-
-defineProps(["movie"]);
 
 const fetchMovies = async () => {
   await axios
@@ -53,13 +54,10 @@ const fetchMovies = async () => {
     })
     .catch((error) => console.log(error));
 };
-const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
 onMounted(() => {
   fetchMovies();
 });
-// console.log(!userStore.user);
-// console.log(userStore.user);
 </script>
 <style>
 .title {

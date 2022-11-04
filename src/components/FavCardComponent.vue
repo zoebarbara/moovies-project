@@ -11,7 +11,7 @@
         <div class="text-h5">{{ movie.title }}</div>
         <HeartIconComponent :movie="movie" />
       </div>
-      <!-- <div class="text-description">{{ favMovie.overview }}</div> -->
+      <div class="text-description">{{ favMovie.overview }}</div>
       <q-btn
         outline
         rounded
@@ -19,13 +19,13 @@
         label="More details"
         :to="{ name: 'moviedetail', params: { index: movie.iden } }"
       ></q-btn>
-      <q-btn
+      <!-- <q-btn
         outline
         rounded
         color="primary"
         label="Delete Favorite"
         @click="deleteFavorite(movie.id)"
-      ></q-btn>
+      ></q-btn> -->
     </q-card-section>
   </q-card>
 </template>
@@ -42,7 +42,7 @@ const props = defineProps({ movie: Object });
 //   console.log("lato por" + movie);
 // };
 
-//Delete favorite
+// // Delete favorite
 // const deleteFavorite = async (id) => {
 //   try {
 //     console.log(id);
