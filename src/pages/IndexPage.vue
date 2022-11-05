@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center column text-center">
-    <p color="blue-grey" class="title q-mt-xl text-h4">
+    <p color="blue-grey" class="title q-mt-xl text-h2">
       <q-icon color="green-13" name="fa-solid fa-bolt" />
       Hot moovies for today
     </p>
@@ -27,10 +27,8 @@
 </template>
 
 <script setup>
-import { useUserStore } from "../stores/user.js";
 import { useFavoriteMoviesStore } from "../stores/favorite-movies";
 import { onMounted, ref, watch } from "vue";
-import { storeToRefs } from "pinia";
 import axios from "axios";
 import CardComponent from "src/components/CardComponent.vue";
 
@@ -60,7 +58,7 @@ onMounted(() => {
 });
 </script>
 <style>
-.title-index {
+.title {
   font-family: "Montserrat", sans-serif;
   font-size: 2rem;
   font-weight: 600;
