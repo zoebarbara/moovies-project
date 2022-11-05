@@ -1,8 +1,3 @@
-import { useUserStore } from "../stores/user.js";
-const userStore = useUserStore();
-
-console.log(userStore.user);
-
 const routes = [
   {
     path: "/",
@@ -49,7 +44,7 @@ const routes = [
         name: "moviedetail",
         component: () => import("pages/MovieDetail.vue"),
         params: true,
-        // meta: { requiresAuth: true },
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -61,7 +56,7 @@ const routes = [
         path: "",
         name: "profile",
         component: () => import("pages/ProfilePage.vue"),
-        // meta: { requiresAuth: true },
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -73,7 +68,7 @@ const routes = [
         path: "",
         name: "favorites",
         component: () => import("pages/FavoritesPage.vue"),
-        // meta: { requiresAuth: true },
+        meta: { requiresAuth: true },
       },
     ],
   },
